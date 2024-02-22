@@ -13,8 +13,35 @@ Fifth home: 80 square meters, 1 bedroom, 1 bathroom
 The program must quote the price of the home according to: square meters, number of bedrooms, and number of bathrooms. Each bedroom adds $40, and each bathroom adds $30. Each square meter has a cost of $90.
 */
 
+import *  as readline from 'node:readline/promises';
+import { stdin as input, stdout as output } from 'node:process';
+const rl = readline.createInterface({ input, output });
 
-let squareMeterHouses = [200 , 150, 100, 100, 80];
+const ask = await rl.question("hi\n");
+rl.close();
+console.log(ask);
+
+
+
+const event = new Promise ((resolve,reject)=>{
+var name = "jun";
+if(name == "juan"){
+    resolve(name);
+    }else{
+        reject();
+    }
+});
+event.then((name)=>{
+    console.log(name);
+}).catch(()=>{
+    console.log("error");
+}).finally(()=>{
+    console.log("the end");
+})
+
+    
+
+/*let squareMeterHouses = [200 , 150, 100, 100, 80];
 let bedroomsAmount=[ 3, 2 ,2 , 1 ,1];
 let bathroomAmount=[2, 2 ,1 ,2 ,1];
 let valuePerHouse=[];
@@ -22,28 +49,16 @@ for(let i = 0; i < 5;i++){
     valuePerHouse.push(squareMeterHouses[i] *90 + bedroomsAmount[i]*40 + bathroomAmount[i]*30);
 }
 let response;
-let space;
-let bedrooms;
-let bathrooms;
 console.log(valuePerHouse);
-
-while(true){
-    response = prompt("Welcome to the Real State Rent System \nSelect an option\n1-Search a house to rent\n2-Exit");
-    if(response ==1){
-        space= prompt(`The first thing you must choose is the size of the house\n\nAvailable sizes:\n${squareMeterHouses[0]}\n${squareMeterHouses[1]}\n${squareMeterHouses[2]}\n${squareMeterHouses}\n${squareMeterHouses[3]}\n${squareMeterHouses[4]}`);
-        if(space == 100){
-            bathrooms = prompt
-        }else{
-            if(space<80 || space >200){
-                alert("Invalid amount");
-                break;
-            }else{
-                alert(`The price of this house is `)
-            }
+console.log("Welcome to the Real State Rent System \nSelect an option\n1-See available houses\n2-Exit");
+response = parseInt(prompt());
+if(response ==1){
+        console.log("Available houses\nHouse value  square meters    bedrooms   bathrooms\n");
+        for(let i = 0; i < 5;i++){
+            console.log(`  ${valuePerHouse[i]}    ${squareMeterHouses[i]}     ${bedroomsAmount[i]}     ${bathroomAmount[i]}\n`)
         }
     }else{
-        break;
+
     }
-    
-    break;
-}
+
+*/
