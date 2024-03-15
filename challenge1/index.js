@@ -223,16 +223,16 @@ for(let position in Tottenham){
 }
 //Showing the teams and their score
 
-console.log("Tottenham Team:");
-console.log(Tottenham.goalkeepers);
-console.log(Tottenham.defenders);
-console.log(Tottenham.midfielders);
-console.log(Tottenham.fowards);
-console.log("Total points "+tottenhamCounter);
+alert("Tottenham Team:");
+alert("Goalkeeper: " + Tottenham.goalkeepers);
+alert("Defenders:" +Tottenham.defenders);
+alert("Midfielders:" + Tottenham.midfielders);
+alert("Fowards: " +Tottenham.fowards);
+alert("Total points of the Tottenham: "+tottenhamCounter);
 
-console.log("MCU Team:")
-console.log(MCU.goalkeepers);
-console.log(MCU.defenders);
-console.log(MCU.midfielders);
-console.log(MCU.fowards);
-console.log("Total points "+mcuCounter);
+alert("MCU Team:")
+alert("Goalkeepers: "+ MCU.goalkeepers);
+alert("Defenders: "+ MCU.defenders);
+alert("Midfielders: "+ MCU.midfielders);
+alert("Fowards:" + MCU.fowards);
+alert("Total points "+mcuCounter);

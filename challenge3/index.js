@@ -14,20 +14,69 @@ The program must quote the price of the home according to: square meters, number
 */
  
 
-let squareMeterHouses = [200 , 150, 100, 100, 80];
-let bedroomsAmount=[ 3, 2 ,2 , 1 ,1];
-let bathroomAmount=[2, 2 ,1 ,2 ,1];
-let valuePerHouse=[];
-for(let i = 0; i < 5;i++){
-    valuePerHouse.push(squareMeterHouses[i] *90 + bedroomsAmount[i]*40 + bathroomAmount[i]*30);
-}
-let response = parseInt(prompt("Welcome to the Real State Rent System \nSelect an option\n1-See available houses\n2-Exit"));
-if(response ==1){
-        console.log("Available houses\nHouse value  square meters    bedrooms   bathrooms\n");
-        for(let i = 0; i < 5;i++){
-            console.log(`  ${valuePerHouse[i]}              ${squareMeterHouses[i]}          ${bedroomsAmount[i]}        ${bathroomAmount[i]}\n`)
-        }
-    }else{
-
+//Creating the class House
+class House{
+    #squareMeters;
+    #bedrooms;
+    #bathrooms;
+    #totalCost = 0;
+    constructor(squareMeters,bedrooms,bathrooms){
+        this.#squareMeters = squareMeters;
+        this.#bedrooms = bedrooms;
+        this.#bathrooms = bathrooms;
     }
+
+    //Getters
+    get getSquareMeters(){
+        return this.#squareMeters;
+    }
+    get getBedrooms(){
+        return this.#bedrooms;
+    }
+    get getBathrooms(){
+        return this.#bathrooms;
+    }
+    get getTotalCost(){
+        return this.#totalCost;
+    }
+
+    //Setters
+
+    set setSquareMeters(newSquareMeters){
+        this.#squareMeters = newSquareMeters;
+    }
+    set setBedrooms(newBedrooms){
+        this.#bedrooms = newBedrooms;
+    }
+    set setBathrooms(newBathrooms){
+        this.#bathrooms = newBathrooms;
+    }
+    set setTotalCost(newTotalCost){
+        //nothing
+    }
+
+    calculateTotalCost(){
+        let total = this.#bathrooms * 30 + this.#bedrooms * 40 + this.#squareMeters * 90;
+        this.#totalCost = total;
+    }
+
+}   
+
+let house1 = new House(200,3,2);
+let house2 = new House(150,2,2);
+let house3 = new House(100,2,1);
+let house4 = new House(100,1,2);
+let house5 = new House(80,1,1);
+
+house1.calculateTotalCost();
+house2.calculateTotalCost();
+house3.calculateTotalCost();
+house4.calculateTotalCost();
+house5.calculateTotalCost();
+
+alert("The House 1 have a price of: $" + house1.getTotalCost);
+alert("The House 2 have a price of: $" + house2.getTotalCost);
+alert("The House 3 have a price of: $" + house3.getTotalCost);
+alert("The House 4 have a price of: $" + house4.getTotalCost);
+alert("The House 5 have a price of: $" + house5.getTotalCost);
 
