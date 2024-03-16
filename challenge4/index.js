@@ -46,6 +46,71 @@ IMPORTANT: You decide how many sizes are available for each available shirt size
 
 //Needs more validation
 
+//class purchased Jersey
+
+class PurchasedJersey{
+    #name;
+    #price;
+    #size;
+    #amount;
+    #type;
+    #number ;
+    constructor(name,price,size,amount,type,number){
+        this.#name =name;
+        this.#price =price;
+        this.#size = size;
+        this.#amount = amount;
+        this.#type = type;
+        if(number == undefined){
+            this.#number = -1;
+        }else{
+            this.#number = number ;
+        }
+    }
+
+
+//getters
+    get getName(){
+        return this.#name;
+    }
+    get getPrice(){
+        return this.#price;
+    }
+    get getSize(){
+        return this.#size;
+    }
+    get getAmount(){
+        return this.#amount;
+    }
+    get getNumber(){
+        return this.#number;
+    }
+    get getType(){
+        return this.#type;
+    }
+
+
+//setters
+    set setName(newName){
+        this.#name = newName;
+    }
+    set setPrice(newPrice){
+        this.#price = newPrice;
+    }
+    set setSize(newSize){
+        this.#price = newSize;
+    }
+    set setAmount(newAmount){
+        this.#amount = newAmount
+    }
+    set setNumber(newNumber){
+        this.#number = newNumber;
+    }
+    set setType(newType){
+        this.#type = newType;
+    }
+}
+
 //Jersey Class for the types and stock
 class Jersey {
     #stockLongSleeved;
@@ -114,8 +179,11 @@ let childrenJerseyShortSleevedStock = [200,85,90];
 // sizes 
 // XS. S. M. L. XL. 2XL 3XL
 
-let sizesManAndWoman = ["1- XS ","2- S ","3- M ","4- L ","5- XL ","6- 2XL ","7- 3XL "];
-let sizesChildren = ["1- S ","2- M ","3- L "];
+let sizesManAndWomanToShow = ["1- XS ","2- S ","3- M ","4- L ","5- XL ","6- 2XL ","7- 3XL "];
+let sizesManAndWoman= ["XS","S","M","L","XL","2XL","3XL"];
+let sizesChildrentoShow = ["1- S ","2- M ","3- L "];
+let sizesChildren = ["S","M","L"];
+let gender= [ "Male" ,"Female" ,"Child"];
 
 //Jersey Types
 let manJersey = new Jersey(manJerseyLongSleevedStock,manJerseyShortSleevedStock,120,100,sizesManAndWoman);
@@ -123,8 +191,7 @@ let womanJersey = new Jersey(womanJerseyLongSleevedStock,womanJerseyShortSleeved
 let childrenJerysey= new Jersey(childrenJerseyLongSleevedStock,childrenJerseyShortSleevedStock,90,70,sizesChildren);
 
 
-
-function amount(jerseyObject , jerseyType){
+function amount(jerseyObject , jerseyType, buyOption,size){
     let flag = true;
     let number = 0;
     let total=0;
@@ -132,14 +199,17 @@ function amount(jerseyObject , jerseyType){
     let price;
     let personalize;
     let personalizeOption;
+    let name;
 
     //getting the stock and price of the respective choice 
     if(jerseyType==0){
         stock=jerseyObject.getStockLongSleeved;
         price = jerseyObject.getPriceLongSleeved;
+        name = "Long Sleeved Jersey";
     }else{
         stock=jerseyObject.getStockShortSleeved;
         price = jerseyObject.getPriceShortSleeved;
+        name = "Short Sleeved Jersey";
     }
 
     //asking the amount to buy and validating it 
@@ -159,13 +229,16 @@ function amount(jerseyObject , jerseyType){
                         jerseyObject.setStockShortSleeved = (jerseyObject.getStockShortSleeved-number);
                     }
                 }
+                //adding the purchase to the cart with the total price
                 personalizeOption = parseInt(prompt("Do you want to personalize it with a number ?:\n1-Yes\n2-No"));
                 if(personalizeOption==1){
                     personalize = parseInt(prompt("Enter the number you want in the jersey:"));
                     total = (price * number) + (number * 25);
+                    cart.push(new PurchasedJersey(name,total,size,number,gender[buyOption-1],personalize))
                     alert("Purcharse added, you can pay now");
                 }else{
                     total = price * number;
+                    cart.push(new PurchasedJersey(name,total,size,number,gender[buyOption-1]))
                     alert("Purcharse added, you can pay now");
                 }
             }
@@ -180,27 +253,31 @@ function buy(){
     let jerseyType = parseInt(prompt("Long Sleeved or Short Sleeved ?\n 1-Long Sleeved\n 2-Short Sleeved\n"));
     jerseyType-=1;
     let size;
+    let aux;
     let totalAmount;
+    //Selecting the size
     switch(buyOption){
         case 1:
         case 2:
-            size = parseInt(prompt("Choose a size: " + sizesManAndWoman));
+            aux = parseInt(prompt("Choose a size: " + sizesManAndWomanToShow));
+            size = sizesManAndWoman[aux-1];
             break;
         case 3:
-            size = parseInt(prompt("Choose a size: " + sizesChildren));
+            aux = parseInt(prompt("Choose a size: " + sizesChildrentoShow));
+            size = sizesChildren[aux-1];
             break;
         default:
             break;
     }
     switch(buyOption){
         case 1 :
-             totalAmount = amount(manJersey, jerseyType);
+             totalAmount = amount(manJersey, jerseyType,buyOption,size);
             break;
         case 2:
-            totalAmount = amount(womanJersey , jerseyType);
+            totalAmount = amount(womanJersey , jerseyType,buyOption,size);
             break;
         case 3:
-            totalAmount = amount(childrenJerysey , jerseyType);
+            totalAmount = amount(childrenJerysey , jerseyType,buyOption,size);
             break;
         default:
             break;
@@ -226,10 +303,9 @@ let total = 0;
 let menuOption = 0;
 let cart = [];
 
-
 //Main menu
 while(flagMainMenu){
-    menuOption = parseInt(prompt("Welcome to the Glorius M.U. Jersey Store, please select an option\n 1-Buy\n2-Pay\n3-Exit"));
+    menuOption = parseInt(prompt("Welcome to the Glorius M.U. Jersey Store, please select an option\n 1-Buy\n2-Pay\n3-show cart\n4-Exit"));
     switch(menuOption){
         case 1:
             total += buy();
@@ -239,6 +315,16 @@ while(flagMainMenu){
                 alert("There is nothing to pay for\n");
             }else{
                 pay(total);
+            }
+            break;
+        case 3:
+            if(total ==0){
+                alert("There is nothing in the cart\n");
+            }else{
+                alert("It's in the console");
+                for(let i = 0; i < cart.length;i++){
+                    console.log(cart[i]);
+                }
             }
             break;
         default:
