@@ -43,6 +43,9 @@ Third kit long-sleeved jersey: 62 units
 
 IMPORTANT: You decide how many sizes are available for each available shirt size. */
 
+
+//Needs more validation
+
 //Jersey Class for the types and stock
 class Jersey {
     #stockLongSleeved;
@@ -124,7 +127,6 @@ let childrenJerysey= new Jersey(childrenJerseyLongSleevedStock,childrenJerseySho
 function amount(jerseyObject , jerseyType){
     let flag = true;
     let number = 0;
-    let amountInStock = 0;
     let total=0;
     let stock;
     let price;
@@ -150,21 +152,24 @@ function amount(jerseyObject , jerseyType){
                 alert("Invalid amount");
             }else{
                 flag = false;  
-                if(jerseyType==0){
+                if(jerseyType-1==0){
                     jerseyObject.setStockLongSleeved= (jerseyObject.getStockLongSleeved-number);
                 }else{
-                    jerseyObject.setStockShortSleeved = (jerseyObject.getStockShortSleeved-number);
+                    if(jerseyType-1==1){
+                        jerseyObject.setStockShortSleeved = (jerseyObject.getStockShortSleeved-number);
+                    }
                 }
                 personalizeOption = parseInt(prompt("Do you want to personalize it with a number ?:\n1-Yes\n2-No"));
                 if(personalizeOption==1){
                     personalize = parseInt(prompt("Enter the number you want in the jersey:"));
-                    total = price * (number * 25);
+                    total = (price * number) + (number * 25);
+                    alert("Purcharse added, you can pay now");
                 }else{
                     total = price * number;
+                    alert("Purcharse added, you can pay now");
                 }
             }
         }
-        
     }
     return total;
 }
@@ -173,6 +178,7 @@ function amount(jerseyObject , jerseyType){
 function buy(){
     let buyOption = parseInt(prompt("What type of Jersey do you whish to buy?\n 1-Man\n2-Woman\n3-Children\n"));
     let jerseyType = parseInt(prompt("Long Sleeved or Short Sleeved ?\n 1-Long Sleeved\n 2-Short Sleeved\n"));
+    jerseyType-=1;
     let size;
     let totalAmount;
     switch(buyOption){
@@ -213,7 +219,6 @@ function pay(total){
     }
 }
 
-
 let memebership = false;
 let jerseyPersonalizedNumber = 0;
 let flagMainMenu = true;
@@ -227,7 +232,7 @@ while(flagMainMenu){
     menuOption = parseInt(prompt("Welcome to the Glorius M.U. Jersey Store, please select an option\n 1-Buy\n2-Pay\n3-Exit"));
     switch(menuOption){
         case 1:
-            total = buy();
+            total += buy();
             break;
         case 2:
             if(total == 0){
